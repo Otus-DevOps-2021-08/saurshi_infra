@@ -34,3 +34,26 @@ ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.221.153 appuser@10.128.0.22
 ---
 * Получили полноценную ssh-сессию.
 
+###
+Создание alias`ов для подключения:
+
+1. Добавлением в .bashrc (.bash_aliases, .alias): 
+
+---
+alias ssh-sinthost="ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.221.153 appuser@10.128.0.22"
+---
+
+2. Лучший вариант - добавлением секции в ~/.ssh/config:
+
+---
+Host someinternalhost
+	HostName someinternalhost
+	#HostName 10.128.0.22
+	User appuser
+	ProxyCommand ssh -W %h:%p appuser@178.154.221.153
+---
+* Подключаемся:
+---
+$ ssh someinternalhost
+---
+* All Ok)
