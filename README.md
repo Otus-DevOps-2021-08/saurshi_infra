@@ -23,14 +23,14 @@ someinternalhost
 * все Ок!
 
 * Подключаемся однострочной командой:
-
-ssh -i ~/.ssh/id_ed25519 -A appuser@178.154.221.153 ssh appuser@10.128.0.22
-
+---
+ssh -i ~/.ssh/id_ed25519 -A appuser@178.154.223.228 ssh appuser@10.128.0.22
+---
 * ... и получаем "неадекватную" сессию...
 
 * Гораздо лучше подключение через jamp-сервер или узел бастион:
 ---
-ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.221.153 appuser@10.128.0.22
+ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.223.228 appuser@10.128.0.22
 ---
 * Получили полноценную ssh-сессию.
 
@@ -40,7 +40,7 @@ ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.221.153 appuser@10.128.0.22
 1. Добавлением в .bashrc (.bash_aliases, .alias): 
 
 ---
-alias ssh-sinthost="ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.221.153 appuser@10.128.0.22"
+alias ssh-sinthost="ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.223.228 appuser@10.128.0.22"
 ---
 
 2. Лучший вариант - добавлением секции в ~/.ssh/config:
@@ -50,7 +50,7 @@ Host someinternalhost
 	HostName someinternalhost
 	#HostName 10.128.0.22
 	User appuser
-	ProxyCommand ssh -W %h:%p appuser@178.154.221.153
+	ProxyCommand ssh -W %h:%p appuser@178.154.223.228
 ---
 * Подключаемся:
 ---
