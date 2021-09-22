@@ -5,7 +5,7 @@ saurshi Infra repository
 
 * Проверяем подключение через проброс ключа на bastiomhost:
 ```
-$ ssh -i ~/.ssh/appuser -A appuser@178.154.221.153
+$ ssh -i ~/.ssh/appuser -A appuser@178.154.253.62
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-42-generic x86_64)
 ```
 ```
@@ -23,13 +23,13 @@ someinternalhost
 
 * Подключаемся однострочной командой:
 ```
-ssh -i ~/.ssh/id_ed25519 -A appuser@178.154.223.228 ssh appuser@10.128.0.22
+ssh -i ~/.ssh/appuser -A appuser@178.154.253.62 ssh appuser@10.128.0.17
 ```
 * ... и получаем "неадекватную" сессию...
 
 * Гораздо лучше подключение через jamp-сервер или узел бастион:
 ```
-ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.223.228 appuser@10.128.0.22
+ssh -i ~/.ssh/appuser -J appuser@178.154.253.62 appuser@10.128.0.17
 ```
 * Получили полноценную ssh-сессию.
 
@@ -39,7 +39,7 @@ ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.223.228 appuser@10.128.0.22
 1. Добавлением в .bashrc (.bash_aliases, .alias): 
 
 ```
-alias ssh-sinthost="ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.223.228 appuser@10.128.0.22"
+alias ssh-sinthost="ssh -i ~/.ssh/appuser -J appuser@178.154.253.62 appuser@10.128.0.17"
 ```
 
 2. Лучший вариант - добавлением секции в ~/.ssh/config:
@@ -47,9 +47,9 @@ alias ssh-sinthost="ssh -i ~/.ssh/id_ed25519 -J appuser@178.154.223.228 appuser@
 ```
 Host someinternalhost
 	HostName someinternalhost
-	#HostName 10.128.0.22
+	#HostName 10.128.0.17
 	User appuser
-	ProxyCommand ssh -W %h:%p appuser@178.154.223.228
+	ProxyCommand ssh -W %h:%p appuser@178.154.253.62
 ```
 * Подключаемся:
 ```
@@ -66,7 +66,7 @@ $ ssh someinternalhost
 
  Конфигурация подключения (cloud-bastion.ovpn):
  ```
- Шлюз: 178.154.223.228
+ Шлюз: 178.154.253.62
  Тип соединения: Пароль и сертификаты (TLS)
  Имя пользователя: test
  ...
@@ -76,7 +76,7 @@ $ ssh someinternalhost
  * Данные для подключения к серверам CloudYandex:
 
  ```
- bastion_IP = 178.154.223.228
- someinternalhost_IP = 10.128.0.22
+ bastion_IP = 178.154.253.62
+ someinternalhost_IP = 10.128.0.17
 
  ```
