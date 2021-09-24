@@ -8,28 +8,29 @@ users:
     ssh_authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPbWh7uckaGw+v9tlDnRRyMnmhfXKNvwH/j6k3lP8dl/ s@shitenkov.ru
 write_files:
-- content: |
-    #!/bin/bash
-    cd
-    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-    sudo apt-get update
-    sudo apt-get install -y mongodb-org
-    sudo systemctl start mongod
-    sudo systemctl enable mongod
-    git clone -b monolith "https://github.com/express42/reddit.git"
-    cd reddit && bundle install
-    puma -d
-    exit 0
-  path: /tmp/deploy.sh
-  permissions: '0755'
-
+  - content: |
+      #!/bin/bash
+      cd
+      sudo systemctl enable --now mongod
+      git clone -b monolith "https://github.com/express42/reddit.git"
+      cd reddit && bundle install
+      puma -d
+    path: /tmp/deploy.sh
+    owner: appuser:appuser
+    permissions: '0755'
 packages:
   - ruby-full
   - ruby-bundler
   - build-essential
   - git
+  - mongodb-org
 package_update: true
-
+apt:
+  preserve_sources_list: true
+  sources:
+    mongodb-org:
+      source: "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse"
+      keyid: 656408E390CFB1F5
+      keyserver: keyserver.ubuntu.com
 runcmd:
   - [ su, -c, /tmp/deploy.sh, appuser ]
