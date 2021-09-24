@@ -3,7 +3,7 @@ saurshi Infra repository
 
 ### Используем Bastion host для сквозного подключения
 
-* Проверяем подключение через проброс ключа на bastiomhost:
+* Проверяем подключение через проброс ключа на bastionhost:
 ```
 $ ssh -i ~/.ssh/appuser -A appuser@178.154.221.153
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-42-generic x86_64)
@@ -92,7 +92,7 @@ $ ./startup.sh
 * Данные для подключения к серверам CloudYandex:
 
 ```
-testapp_IP = 62.84.118.70
+testapp_IP = 62.84.112.54
 testapp_port = 9292
 
 ```
