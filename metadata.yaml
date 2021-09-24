@@ -29,7 +29,7 @@ apt:
   preserve_sources_list: true
   sources:
     mongodb-org:
-      source: "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse"
+      source: "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse"
       keyid: 656408E390CFB1F5
       keyserver: keyserver.ubuntu.com
 runcmd:
