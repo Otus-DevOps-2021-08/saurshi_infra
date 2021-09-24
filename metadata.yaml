@@ -1,23 +1,4 @@
 #cloud-config
-users:
-  - default
-  - name: appuser
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    shell: /bin/bash
-    lock_passwd: true
-    ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPbWh7uckaGw+v9tlDnRRyMnmhfXKNvwH/j6k3lP8dl/ s@shitenkov.ru
-write_files:
-  - content: |
-      #!/bin/bash
-      cd
-      sudo systemctl enable --now mongod
-      git clone -b monolith "https://github.com/express42/reddit.git"
-      cd reddit && bundle install
-      puma -d
-    path: /tmp/deploy.sh
-    owner: appuser:appuser
-    permissions: '0755'
 packages:
   - ruby-full
   - ruby-bundler
@@ -32,5 +13,23 @@ apt:
       source: "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse"
       keyid: 656408E390CFB1F5
       keyserver: keyserver.ubuntu.com
+users:
+  - default
+  - name: ubuntu
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPbWh7uckaGw+v9tlDnRRyMnmhfXKNvwH/j6k3lP8dl/ s@shitenkov.ru
+write_files:
+  - content: |
+      #!/bin/bash
+      cd
+      sudo systemctl enable --now mongod
+      git clone -b monolith "https://github.com/express42/reddit.git"
+      cd reddit && bundle install
+      puma -d
+    path: /tmp/deploy.sh
+    permissions: '0755'
 runcmd:
-  - [ su, -c, /tmp/deploy.sh, appuser ]
+  - [ sed, -i, 's/127.0.0.1/0.0.0.0/g', /etc/mongod.conf ]
+  - [ chown, ubuntu., /tmp/deploy.sh ]
+  - [ su, -c, /tmp/deploy.sh, ubuntu ]

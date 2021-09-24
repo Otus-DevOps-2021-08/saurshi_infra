@@ -92,7 +92,7 @@ $ ./startup.sh
 * Данные для подключения к серверам CloudYandex:
 
 ```
-testapp_IP = 62.84.112.54
+testapp_IP = 62.84.113.81
 testapp_port = 9292
 
 ```
