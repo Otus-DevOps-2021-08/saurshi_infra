@@ -3,9 +3,9 @@ saurshi Infra repository
 
 ### Используем Bastion host для сквозного подключения
 
-* Проверяем подключение через проброс ключа на bastiomhost:
+* Проверяем подключение через проброс ключа на bastionhost:
 ```
-$ ssh -i ~/.ssh/appuser -A appuser@178.154.253.62
+$ ssh -i ~/.ssh/appuser -A appuser@178.154.221.153
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-42-generic x86_64)
 ```
 ```
@@ -80,3 +80,20 @@ $ ssh someinternalhost
  someinternalhost_IP = 10.128.0.17
 
  ```
+### Задание №6
+**Деплой тестового приложения**
+
+* Создаем инстанс в Yandex.Cloud с уже запущенным приложением, с помощью CLI, запустив скрипт:
+
+```
+$ ./startup.sh
+
+```
+* Данные для подключения к серверам CloudYandex:
+
+```
+testapp_IP = 62.84.113.81
+testapp_port = 9292
+
+```
+
