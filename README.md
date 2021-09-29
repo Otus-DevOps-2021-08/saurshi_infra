@@ -1,7 +1,8 @@
 # saurshi_infra
 saurshi Infra repository
 
-### Используем Bastion host для сквозного подключения
+### Задание №5
+**Используем Bastion host для сквозного подключения**
 
 * Проверяем подключение через проброс ключа на bastionhost:
 ```
@@ -96,4 +97,27 @@ testapp_IP = 62.84.113.81
 testapp_port = 9292
 
 ```
+### Задание №7
+**Сборка образов VM при помощи Packer**
+
+#### В процессе сделано:
+* Установлен Packer.
+* Создан service account & key file.
+* Создан файла-шаблона Packer - packer/ubuntu16.json.
+* Собран baked-образ с установленными MongoDB, Ruby - reddit-base.
+* Протестирован образ в качестве загрузочного при создании ВМ.
+* Параметризирован шаблон.
+* Собран baked-образ reddit-full шаблоном immutable.json.
+* Образ проверен созданным скриптом:
+  ```./create-reddit-vm.sh```
+#### Как проверить:
+**Проверить работоспособность сервера puma можно по ссылке:**
+  [http://62.84.119.210:9292/](http://62.84.119.210:9292/)
+
+**Собрать baked-образ:
+```cd packer && packer build -var-file=variables.json immutable.json```
+
+**Создать ВМ с помощью Yandex.Cloud CLI можно, запустив скрипт**
+```cd scripts && ./create-reddit-vm.sh```
+
 
