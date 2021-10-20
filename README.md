@@ -151,5 +151,5 @@ testapp_port = 9292
 [http://193.32.218.122:9292/](http://193.32.218.122:9292/)
 
 **Создать ВМ с помощью Terraform**
-``` cd terraform/prod && terraform apply -var-file=terraform.tfvars.example```
+``` cd terraform/prod && terraform apply ```
 
