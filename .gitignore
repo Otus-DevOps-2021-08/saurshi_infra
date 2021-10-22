@@ -8,6 +8,7 @@
 *.save
 access_key
 secret_key
+dburl.txt
 provider.tf
 variables.json
 *key.json
