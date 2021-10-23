@@ -10,8 +10,7 @@ module "app" {
   private_key_path = var.private_key_path
   app_disk_image   = var.app_disk_image
   subnet_id        = var.subnet_id
-  #  depends_on       = [null_resource.dburl]
-}
+  }
 module "db" {
   source           = "../modules/db"
   public_key_path  = var.public_key_path
@@ -24,8 +23,3 @@ resource "local_file" "dburl" {
   file_permission = "0666"
   filename        = "../files/dburl.txt"
 }
-#resource "null_resource" "dburl" {
-#  triggers = {
-#    dependency = module.db.external_ip_address_db
-#  }
-#}
