@@ -1,12 +1,3 @@
-#terraform {
-#  required_providers {
-#    yandex = {
-#      source = "yandex-cloud/yandex"
-#      version = "0.61.0"
-#    }
-#  }
-#}
-
 provider "yandex" {
   service_account_key_file = var.service_account_key_file
   cloud_id                 = var.cloud_id
@@ -15,17 +6,18 @@ provider "yandex" {
 }
 resource "yandex_compute_instance" "app" {
   name = "reddit-app"
-  zone = var.zone
 
+  labels = {
+    tags = "reddit-app"
+  }
   resources {
-    core_fraction = 20
-    cores         = 2
-    memory        = 2
+    cores  = 2
+    memory = 2
   }
 
   boot_disk {
     initialize_params {
-      image_id = var.image_id
+      image_id = var.app_disk_image
     }
   }
 
@@ -47,12 +39,15 @@ resource "yandex_compute_instance" "app" {
   }
 
   provisioner "file" {
-    source      = "files/puma.service"
+    source      = "../files/puma.service"
     destination = "/tmp/puma.service"
   }
-
+  provisioner "file" {
+    source      = "../files/dburl.txt"
+    destination = "/tmp/dburl.txt"
+  }
   provisioner "remote-exec" {
-    script = "files/deploy.sh"
+    script = "../files/deploy.sh"
   }
 }
 
