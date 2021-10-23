@@ -167,5 +167,5 @@ testapp_port = 9292
 Как запустить проект:
 
 ``` cd terraform/stage && terrafrom apply ```
-``` cd ../../ansible && ansible-playbook clone.yml
+``` cd ../../ansible && ansible-playbook clone.yml ```
 
