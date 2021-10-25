@@ -21,3 +21,4 @@ variables.json
 crash.log
 *_override.tf
 *_override.tf.json
+jdauphant.nginx
