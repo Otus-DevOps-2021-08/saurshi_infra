@@ -11,6 +11,7 @@ secret_key
 provider.tf
 variables.json
 *key.json
+*.retry
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.*.backup
