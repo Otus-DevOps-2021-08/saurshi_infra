@@ -10,3 +10,4 @@ saurshi Infra repository
 * Описал два окружения
 * Использовал коммьюнити роль nginx
 * Использовал Ansible Vault для окружений
+
