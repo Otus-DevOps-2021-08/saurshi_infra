@@ -18,8 +18,3 @@ module "db" {
   db_disk_image    = var.db_disk_image
   subnet_id        = var.subnet_id
 }
-resource "local_file" "dburl" {
-  content         = module.db.external_ip_address_db
-  file_permission = "0666"
-  filename        = "../files/dburl.txt"
-}
